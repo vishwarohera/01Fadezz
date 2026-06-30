@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01Fadezz — Columbus Barbershop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0c0c0d;
+    --charcoal:#17171a;
+    --gold:#c9a14a;
+    --gold-bright:#e8c474;
+    --bone:#f3ede1;
+    --line:rgba(243,237,225,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--bone);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold);color:var(--black);}
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 6vw;
+    backdrop-filter:blur(10px);
+    background:linear-gradient(to bottom, rgba(12,12,13,0.85), transparent);
+  }
+  .logo-mark{
+    font-family:'Anton',sans-serif;
+    font-size:22px;letter-spacing:1px;
+    color:var(--bone);
+  }
+  .logo-mark span{color:var(--gold);}
+  .nav-cta{
+    font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--black);background:var(--gold);
+    padding:10px 20px;border-radius:2px;text-decoration:none;
+    transition:background 0.25s ease;
+  }
+  .nav-cta:hover{background:var(--gold-bright);}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:flex-end;
+    padding:0 6vw 90px;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background-image:url('https://d2zdpiztbgorvt.cloudfront.net/region1/us/1252072/inspiration/70bc263a523749d28827fb9c90077d-01fadezz-inspiration-8d0efe173674420fa78147a305fc6c-booksy.jpeg?size=640x0');
+    background-size:cover;background-position:center 25%;
+    filter:saturate(1.05) contrast(1.05);
+  }
+  .hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to top, var(--black) 5%, rgba(12,12,13,0.55) 55%, rgba(12,12,13,0.35) 100%);
+  }
+  .hero-content{position:relative;z-index:2;max-width:780px;}
+  .eyebrow{
+    display:flex;align-items:center;gap:10px;
+    font-size:13px;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--gold-bright);font-weight:600;margin-bottom:22px;
+  }
+  .eyebrow::before{content:'';width:30px;height:1px;background:var(--gold-bright);}
+  h1.hero-title{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    font-size:clamp(48px,9vw,108px);
+    line-height:0.92;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    color:var(--bone);
+  }
+  h1.hero-title .gold{color:var(--gold);}
+  .hero-sub{
+    margin-top:24px;
+    font-size:18px;line-height:1.6;
+    color:rgba(243,237,225,0.78);
+    max-width:520px;
+    font-weight:400;
+  }
+  .hero-actions{
+    margin-top:38px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;
+  }
+  .btn-primary{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--gold);color:var(--black);
+    font-weight:800;letter-spacing:0.04em;text-transform:uppercase;font-size:14px;
+    padding:17px 32px;border-radius:2px;text-decoration:none;
+    transition:transform 0.2s ease, background 0.2s ease;
+  }
+  .btn-primary:hover{background:var(--gold-bright);transform:translateY(-2px);}
+  .btn-primary svg{width:16px;height:16px;}
+  .rating-pill{
+    display:flex;align-items:center;gap:8px;
+    font-size:14px;color:var(--bone);
+  }
+  .stars{color:var(--gold-bright);letter-spacing:1px;}
+
+  /* SECTION HEADER PATTERN */
+  .section-label{
+    font-size:13px;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--gold);font-weight:700;margin-bottom:14px;
+  }
+  section{padding:110px 6vw;}
+  .section-title{
+    font-family:'Anton',sans-serif;font-weight:400;
+    font-size:clamp(32px,5vw,56px);
+    text-transform:uppercase;line-height:1;
+    color:var(--bone);
+  }
+
+  /* ABOUT */
+  .about{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:70px;align-items:center;
+    border-top:1px solid var(--line);
+  }
+  .about-copy p{
+    font-size:16px;line-height:1.85;color:rgba(243,237,225,0.72);
+    margin-top:22px;max-width:480px;
+  }
+  .about-stats{
+    display:flex;gap:40px;margin-top:40px;
+  }
+  .stat-num{font-family:'Anton',sans-serif;font-size:42px;color:var(--gold-bright);}
+  .stat-label{font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(243,237,225,0.55);margin-top:4px;}
+  .about-img{
+    position:relative;
+    border-radius:4px;overflow:hidden;
+    aspect-ratio:4/5;
+  }
+  .about-img img{width:100%;height:100%;object-fit:cover;display:block;}
+  .about-img-frame{
+    position:absolute;inset:-14px;
+    border:1px solid var(--gold);
+    z-index:-1;border-radius:4px;
+    transform:translate(14px,14px);
+  }
+  .about-img-wrap{position:relative;}
+
+  /* SERVICES */
+  .services{border-top:1px solid var(--line);}
+  .services-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:60px;}
+  .service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .service-card{
+    background:var(--charcoal);padding:42px;
+    display:flex;flex-direction:column;gap:14px;
+    transition:background 0.25s ease;
+  }
+  .service-card:hover{background:#1e1e22;}
+  .service-top{display:flex;justify-content:space-between;align-items:baseline;}
+  .service-name{font-size:22px;font-weight:700;color:var(--bone);}
+  .service-price{font-family:'Anton',sans-serif;color:var(--gold-bright);font-size:22px;}
+  .service-meta{font-size:13px;color:rgba(243,237,225,0.5);letter-spacing:0.04em;}
+  .service-tag{
+    display:inline-block;width:fit-content;
+    font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--gold);border:1px solid var(--gold);
+    padding:4px 10px;border-radius:20px;margin-top:6px;
+  }
+
+  /* GALLERY */
+  .gallery{border-top:1px solid var(--line);}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    grid-auto-rows:170px;
+    gap:8px;margin-top:50px;
+  }
+  .gallery-grid img{
+    width:100%;height:100%;object-fit:cover;
+    border-radius:3px;
+    filter:grayscale(15%);
+    transition:filter 0.3s ease, transform 0.3s ease;
+  }
+  .gallery-grid a{overflow:hidden;border-radius:3px;display:block;}
+  .gallery-grid img:hover{filter:grayscale(0%);transform:scale(1.04);}
+  .g1{grid-column:span 2;grid-row:span 2;}
+  .g2{grid-column:span 2;}
+  .g3{grid-column:span 2;}
+  .g4{grid-column:span 3;}
+  .g5{grid-column:span 3;}
+
+  /* REVIEWS */
+  .reviews{border-top:1px solid var(--line);}
+  .reviews-rail{
+    display:flex;gap:24px;overflow-x:auto;margin-top:50px;padding-bottom:10px;
+    scrollbar-width:none;
+  }
+  .reviews-rail::-webkit-scrollbar{display:none;}
+  .review-card{
+    flex:0 0 340px;
+    background:var(--charcoal);
+    border:1px solid var(--line);
+    padding:32px;border-radius:4px;
+  }
+  .review-stars{color:var(--gold-bright);font-size:14px;margin-bottom:16px;letter-spacing:2px;}
+  .review-text{font-size:15px;line-height:1.7;color:rgba(243,237,225,0.82);min-height:90px;}
+  .review-author{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:22px;padding-top:18px;border-top:1px solid var(--line);
+    font-size:13px;color:rgba(243,237,225,0.55);
+  }
+  .review-author b{color:var(--bone);font-weight:600;}
+
+  /* CTA BAND */
+  .cta-band{
+    border-top:1px solid var(--line);
+    text-align:center;padding:130px 6vw;
+    background:radial-gradient(circle at 50% 0%, rgba(201,161,74,0.08), transparent 60%);
+  }
+  .cta-band h2{
+    font-family:'Anton',sans-serif;font-weight:400;
+    font-size:clamp(36px,7vw,72px);text-transform:uppercase;
+    line-height:1;color:var(--bone);max-width:780px;margin:0 auto;
+  }
+  .cta-band h2 .gold{color:var(--gold);}
+  .cta-band p{margin-top:20px;color:rgba(243,237,225,0.65);font-size:16px;}
+  .cta-band .btn-primary{margin-top:36px;padding:20px 44px;font-size:15px;}
+
+  /* FOOTER */
+  footer{
+    border-top:1px solid var(--line);
+    padding:50px 6vw;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
+  }
+  .footer-info{font-size:13px;color:rgba(243,237,225,0.5);line-height:1.8;}
+  .footer-info b{color:var(--bone);}
+  .footer-links{display:flex;gap:24px;}
+  .footer-links a{color:rgba(243,237,225,0.6);text-decoration:none;font-size:13px;transition:color 0.2s;}
+  .footer-links a:hover{color:var(--gold-bright);}
+
+  @media(max-width:860px){
+    .about{grid-template-columns:1fr;}
+    .service-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px;}
+    .g1,.g2,.g3,.g4,.g5{grid-column:span 1;}
+    .g1{grid-row:span 2;}
+    nav{padding:18px 5vw;}
+    section{padding:80px 5vw;}
+    .cta-band{padding:90px 5vw;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo-mark">01<span>FADEZZ</span></div>
+  <a class="nav-cta" href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus" target="_blank" rel="noopener">Book a Cut</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="eyebrow">Columbus, Ohio · Mobile &amp; In-Studio</div>
+    <h1 class="hero-title">Precision<br>Cuts, <span class="gold">Real</span><br>Conversation</h1>
+    <p class="hero-sub">Abdul Muriidi built 01Fadezz on one rule: every line is sharp and every client leaves feeling like family. Snacks, PS5, flat-screen — sit back, it's a vibe.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus" target="_blank" rel="noopener">
+        Book a Cut
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <div class="rating-pill"><span class="stars">★★★★★</span> 4.9 · 91 reviews on Booksy</div>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-copy">
+    <div class="section-label">The Shop</div>
+    <h2 class="section-title">More Than<br>a Barber</h2>
+    <p>Walk into 01Fadezz and you'll see why clients call it home. Abdul doesn't just cut hair — he builds relationships, one conversation and one crisp line-up at a time. Consistency, precision, and good energy, every single visit.</p>
+    <div class="about-stats">
+      <div>
+        <div class="stat-num">4.9</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+      <div>
+        <div class="stat-num">91</div>
+        <div class="stat-label">Verified Reviews</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Booked by Booksy</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-img-wrap">
+    <div class="about-img-frame"></div>
+    <div class="about-img">
+      <img src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/1252072/inspiration/5cbcf44807934d29b78d0d772917f1-01fadezz-inspiration-599e2842341846b890681a134833d7-booksy.jpeg?size=640x0" alt="01Fadezz barber at work">
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="services-head">
+    <div>
+      <div class="section-label">Services</div>
+      <h2 class="section-title">What We Cut</h2>
+    </div>
+    <p style="max-width:340px;color:rgba(243,237,225,0.6);font-size:15px;">Every service booked direct through Booksy — pick your time, lock your spot.</p>
+  </div>
+  <div class="service-grid">
+    <div class="service-card">
+      <div class="service-top"><span class="service-name">Haircut</span><span class="service-price">$40+</span></div>
+      <div class="service-meta">30 min</div>
+      <span class="service-tag">Most Popular</span>
+    </div>
+    <div class="service-card">
+      <div class="service-top"><span class="service-name">Haircut + Beard</span><span class="service-price">$50+</span></div>
+      <div class="service-meta">35 min</div>
+      <span class="service-tag">Most Popular</span>
+    </div>
+    <div class="service-card">
+      <div class="service-top"><span class="service-name">Kids Haircut</span><span class="service-price">$30</span></div>
+      <div class="service-meta">30 min</div>
+    </div>
+    <div class="service-card">
+      <div class="service-top"><span class="service-name">Line-Up</span><span class="service-price">$20</span></div>
+      <div class="service-meta">20 min</div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="section-label">Gallery</div>
+  <h2 class="section-title">Fresh Off the Chair</h2>
+  <div class="gallery-grid">
+    <a class="g1" href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus" target="_blank" rel="noopener"><img src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/1252072/inspiration/5d2d5521ae6447788119472eda3860-01fadezz-inspiration-93617dd1bcfc43bbacfead48cc6f83-booksy.jpeg?size=640x0" alt="01Fadezz fresh cut"></a>
+    <a class="g2" href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus" target="_blank" rel="noopener"><img src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/1252072/inspiration/b272413057af446ba6fd20f5e7b8f4-01fadezz-inspiration-a11dbfc066f64bf89b1bf3b5e8eb3e-booksy.jpeg?size=640x0" alt="01Fadezz client"></a>
+    <a class="g3" href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus" target="_blank" rel="noopener"><img src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/1252072/inspiration/5a471f6b91df4e17b39a064b533576-01fadezz-inspiration-33312c96710e43f081841f569c7da9-booksy.jpeg?size=640x0" alt="01Fadezz line up detail"></a>
+    <a class="g4" href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus" target="_blank" rel="noopener"><img src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/1252072/inspiration/8330c5e82a734c22b748f322155331-01fadezz-inspiration-47a3234dda214ad19d615b9cc01405-booksy.jpeg?size=640x0" alt="01Fadezz shop vibe"></a>
+    <a class="g5" href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus" target="_blank" rel="noopener"><img src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/1252072/service_photos/5418502cea004ce2bd6403dbaf5ff238.jpeg" alt="01Fadezz haircut and beard"></a>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="section-label">Word on the Street</div>
+  <h2 class="section-title">Clients Say It Best</h2>
+  <div class="reviews-rail">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"More than just a barber to me — he became like fam. Long talks, good vibes, and talented to the max. He's really that dude in Columbus, Ohio."</div>
+      <div class="review-author"><b>Gregory</b><span>Confirmed client</span></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"Most consistent barber in Ohio."</div>
+      <div class="review-author"><b>Patrick</b><span>Confirmed client</span></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"Super talented and professional. The shop is always spotless, with beverages and snacks available. The guest lounge is next-level — flat-screen TV and a PS5. The whole place is a vibe!"</div>
+      <div class="review-author"><b>Abubakar</b><span>Confirmed client</span></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"Great conversation, great cut. Listens to exactly what you want."</div>
+      <div class="review-author"><b>Dannye</b><span>Confirmed client</span></div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">"Great haircut. Very professional. You have won me as a permanent client."</div>
+      <div class="review-author"><b>Alex</b><span>Confirmed client</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>Your Next Cut Is <span class="gold">One Tap Away</span></h2>
+  <p>Pick your time, pick your barber, lock it in — booked instantly through Booksy.</p>
+  <a class="btn-primary" href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus" target="_blank" rel="noopener">
+    Book a Cut
+  </a>
+</section>
+
+<footer>
+  <div class="footer-info">
+    <b>01Fadezz</b> · 3181 Morse Rd, Suite 44, Columbus, OH 43231<br>
+    Booked exclusively through Booksy · ★ 4.9 (91 reviews)
+  </div>
+  <div class="footer-links">
+    <a href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus" target="_blank" rel="noopener">Book Now</a>
+  </div>
+</footer>
+
+</body>
+</html>
