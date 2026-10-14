@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>01Fadezz — Columbus barbershop (mockup)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Hanken+Grotesk:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#131211;--panel:#1c1a18;--line:#35302a;--tx:#ede6d8;--mute:#a79f90;--gold:#c2a26a;--on:#131211;--bad:#e08b7a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4efe5;--panel:#fffaf0;--line:#d8cfbd;--tx:#1b1917;--mute:#645d51;--gold:#8a6a2d;--on:#fffaf0;--bad:#a8402c}}
+:root[data-theme="light"]{--bg:#f4efe5;--panel:#fffaf0;--line:#d8cfbd;--tx:#1b1917;--mute:#645d51;--gold:#8a6a2d;--on:#fffaf0;--bad:#a8402c}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 'Hanken Grotesk',system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',Georgia,sans-serif;line-height:1.05;margin:0 0 .5em}
+h1{font-size:clamp(2.6rem,8vw,5.6rem);font-weight:800;letter-spacing:-.03em}
+h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700}
+h3{font-size:1.15rem}
+a{color:var(--gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.3rem;letter-spacing:-.02em}
+button,.btn{font:inherit;cursor:pointer;border:1px solid var(--gold);background:var(--gold);color:var(--on);padding:.6em 1.1em;border-radius:3px;font-weight:600;text-decoration:none;display:inline-block}
+button.ghost,.btn.ghost{background:transparent;color:var(--tx);border-color:var(--line)}
+button.sel{outline:2px solid var(--gold)}
+button:disabled{opacity:.4;cursor:not-allowed}
+section{padding:64px 0;border-top:1px solid var(--line)}
+.hero{display:grid;gap:32px;padding:56px 0;grid-template-columns:1fr}
+@media(min-width:860px){.hero{grid-template-columns:1.1fr .9fr;align-items:center}}
+.ph{background:linear-gradient(135deg,#2a2621,#17140f);border:1px solid var(--line);display:flex;align-items:flex-end;padding:12px;color:var(--mute);font-size:.85rem;overflow:hidden;position:relative;aspect-ratio:4/5}
+.ph::before{content:attr(data-alt);position:absolute;left:12px;bottom:12px;right:12px}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.grid .ph{aspect-ratio:1}
+.row{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.row p{margin:0;color:var(--mute)}
+.price{font-family:'Bricolage Grotesque';font-weight:700;font-size:1.3rem;white-space:nowrap}
+blockquote{margin:0;padding:0 0 0 18px;border-left:2px solid var(--gold)}
+.two{display:grid;gap:28px;grid-template-columns:1fr}
+@media(min-width:860px){.two{grid-template-columns:1fr 1fr}}
+.card{background:var(--panel);border:1px solid var(--line);padding:20px}
+label{display:block;font-size:.9rem;color:var(--mute);margin:12px 0 4px}
+input,select,textarea{width:100%;font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);padding:.6em .7em;border-radius:3px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.msg{padding:10px 12px;border:1px solid var(--line);margin:12px 0}
+.err{border-color:var(--bad);color:var(--bad)}
+.note{color:var(--mute);font-size:.9rem}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+table{width:100%;border-collapse:collapse}td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.dash{background:var(--panel);border-bottom:1px solid var(--line);padding:24px 0 48px}
+@media(prefers-reduced-motion:no-preference){.hero h1{animation:in .7s ease both}@keyframes in{from{opacity:0;transform:translateY(10px)}}}
+</style></head><body>
+<header><div class="wrap"><span class="logo">01Fadezz</span>
+<nav style="display:flex;gap:8px"><button class="ghost" id="tgl" aria-pressed="false">Owner dashboard</button><a class="btn" href="#book" id="bk">Book a cut</a></nav></div></header>
+<main id="app"></main>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CDN='https://d2zdpiztbgorvt.cloudfront.net/region1/us/1252072/';
+const D={mode:'request',email:'',ig:'https://www.instagram.com/01fadezz/',addr:'3181 Morse Rd, Room 44, Columbus, OH 43231',mobileOn:true,mobileText:'',
+hours:{0:null,1:null,2:null,3:null,4:null,5:null,6:null},
+services:[{id:1,name:'Haircut',d:'Regular haircut with line up. Enhancements included if wanted.',p:40,m:30,plus:1},{id:2,name:'Haircut + Beard',d:'Haircut and beard trim with razor line up.',p:50,m:35,plus:1},{id:3,name:'Kids Haircut',d:'Kids haircut.',p:30,m:30},{id:4,name:'Line-Up',d:'Clean line up.',p:20,m:20}],
+barbers:[{id:'a',name:'Abdul Muriidi',role:'Owner',bio:'Built 01Fadezz on one rule: every line is sharp and every client leaves feeling like family.',email:'',paused:false},{id:'m',name:'Mazen',role:'Stylist',bio:'New stylist, profile coming soon.',email:'',paused:false,invite:''}],
+photos:['inspiration/5d2d5521ae6447788119472eda3860-01fadezz-inspiration-93617dd1bcfc43bbacfead48cc6f83-booksy.jpeg','inspiration/b272413057af446ba6fd20f5e7b8f4-01fadezz-inspiration-a11dbfc066f64bf89b1bf3b5e8eb3e-booksy.jpeg','inspiration/5a471f6b91df4e17b39a064b533576-01fadezz-inspiration-33312c96710e43f081841f569c7da9-booksy.jpeg','inspiration/8330c5e82a734c22b748f322155331-01fadezz-inspiration-47a3234dda214ad19d615b9cc01405-booksy.jpeg'].map((p,i)=>({src:CDN+p+'?size=640x0',alt:['Fresh cut','Client in the chair','Line up detail','Shop atmosphere'][i]})),
+reviews:[{a:'Gregory',t:'More than just a barber to me — he became like fam. Long talks, good vibes, and talented to the max.'},{a:'Patrick',t:'Most consistent barber in Ohio.'},{a:'Dannye',t:'Great conversation, great cut. Listens to exactly what you want.'}],
+reqs:[],inq:[]};
+let S=D;try{const x=localStorage.getItem('f01');if(x)S={...D,...JSON.parse(x)}}catch(e){}
+const save=()=>{try{localStorage.setItem('f01',JSON.stringify(S))}catch(e){note('Saved for this session only. Browser storage is full or blocked.')}};
+let view='site',tab='hours',B={svc:[],barber:'any',date:null,time:null,name:'',email:'',phone:'',msg:'',ok:''},flash='';
+const note=m=>{flash=m};
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const tm=s=>{const[a,b]=s.split(':');return+a*60+ +b},hm=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+const fmt=m=>{const h=Math.floor(m/60),x=h>=12?'PM':'AM';return((h+11)%12+1)+':'+String(m%60).padStart(2,'0')+' '+x};
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const days=()=>Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()+i);return d});
+const dur=()=>B.svc.reduce((a,id)=>a+S.services.find(s=>s.id===id).m,0);
+const cost=()=>B.svc.reduce((a,id)=>a+S.services.find(s=>s.id===id).p,0);
+// Central rule used by slot display AND by submit. Production: the DB exclusion constraint in the schema file.
+const busy=(bid,date,st,en)=>S.reqs.some(r=>r.barber===bid&&r.date===date&&r.status!=='declined'&&st<r.end&&en>r.start);
+const free=(bid,dstr,st,en)=>{const b=S.barbers.find(x=>x.id===bid);if(!b||b.paused)return false;const h=S.hours[new Date(dstr+'T12:00').getDay()];return !!h&&st>=tm(h.o)&&en<=tm(h.c)&&!busy(bid,dstr,st,en)};
+const slots=()=>{if(!B.date||!B.svc.length)return[];const n=new Date(),L=dur(),h=S.hours[new Date(B.date+'T12:00').getDay()];if(!h)return[];const out=[];
+for(let t=tm(h.o);t+L<=tm(h.c);t+=30){if(B.date===iso(n)&&t<n.getHours()*60+n.getMinutes()+60)continue;
+const ids=B.barber==='any'?S.barbers.map(b=>b.id):[B.barber];if(ids.some(id=>free(id,B.date,t,t+L)))out.push(t)}return out};
+function book(){const L=dur(),t=B.time;if(!B.svc.length||t==null||!B.name.trim()||!/\S+@\S+\.\S+/.test(B.email))return B.msg='Pick a service and time, then enter your name and a valid email.',0;
+const ids=B.barber==='any'?S.barbers.map(b=>b.id):[B.barber],id=ids.find(i=>free(i,B.date,t,t+L));
+if(!id){B.time=null;B.msg='That time was just taken. Your details are saved. Pick another time.';return 0}
+S.reqs.push({ref:'FZ'+Math.random().toString(36).slice(2,7).toUpperCase(),barber:id,date:B.date,start:t,end:t+L,svc:B.svc.map(i=>S.services.find(s=>s.id===i).name).join(' + '),name:B.name,email:B.email,phone:B.phone,total:cost(),status:S.mode==='live'?'confirmed':'pending'});
+const r=S.reqs[S.reqs.length-1];save();B.ok=S.mode==='live'?`Booked. Reference ${r.ref}.`:`Request sent. Reference ${r.ref}. It is not confirmed until the shop replies.`;B.svc=[];B.time=null;B.msg='';return 1}
+const img=p=>`<div class="ph" data-alt="${esc(p.alt)}"><img src="${esc(p.src)}" alt="${esc(p.alt)}" loading="lazy" onerror="this.remove()"></div>`;
+const bname=id=>(S.barbers.find(b=>b.id===id)||{}).name||'';
+function site(){const hrs=DAYS.map((d,i)=>S.hours[i]?`<tr><td>${d}</td><td>${fmt(tm(S.hours[i].o))} – ${fmt(tm(S.hours[i].c))}</td></tr>`:'').join('');
+const modeTxt={request:'Send a request. We confirm it by reply.',live:'Pick a time and it is booked instantly.',redirect:'Booking opens on Booksy.'}[S.mode];
+return `<div class="wrap"><div class="hero"><div><h1>Every line sharp. Every client family.</h1><p style="max-width:46ch;color:var(--mute)">Abdul Muriidi's shop in Columbus. Snacks, a PS5 and a flat-screen in the lounge. Sit back.</p><p><a class="btn" href="#book">Book a cut</a> <a class="btn ghost" href="#mobile">Mobile service</a></p></div>${S.photos[0]?img(S.photos[0]):''}</div></div>
+<section><div class="wrap"><h2>Services</h2>${S.services.map(s=>`<div class="row"><div><h3>${esc(s.name)}</h3><p>${esc(s.d)}</p><p>${s.m} min</p></div><div class="price">$${s.p}${s.plus?'+':''}</div></div>`).join('')}</div></section>
+<section><div class="wrap"><h2>The chairs</h2><div class="two">${S.barbers.map(b=>`<div class="card"><h3>${esc(b.name)}</h3><p class="note">${esc(b.role)}</p><p>${esc(b.bio)}</p></div>`).join('')}</div></div></section>
+<section><div class="wrap"><h2>Fresh off the chair</h2>${S.photos.length?`<div class="grid">${S.photos.map(img).join('')}</div>`:'<p class="note">No photos yet. The owner adds them in the dashboard.</p>'}</div></section>
+<section><div class="wrap"><h2>Clients say</h2><div class="two">${S.reviews.map(r=>`<blockquote><p>${esc(r.t)}</p><p class="note">${esc(r.a)}, verified client on Booksy</p></blockquote>`).join('')}</div></div></section>
+${S.mobileOn?`<section id="mobile"><div class="wrap two"><div><h2>Mobile and travel service</h2><p>Available by request and subject to approval.</p>${S.mobileText?`<p>${esc(S.mobileText)}</p>`:'<p class="note">Fees and policy are provided on request.</p>'}<p>${S.email?`<a href="mailto:${esc(S.email)}">Email Abdul</a>`:`<a href="${esc(S.ig)}">Message us on Instagram</a>`}</p></div>
+<form class="card" id="inq"><label for="iq1">Name</label><input id="iq1" required><label for="iq2">Email</label><input id="iq2" type="email" required><label for="iq3">Where and when</label><textarea id="iq3" rows="3" required></textarea><p><button>Send inquiry</button></p><div role="status" class="note" id="iqs"></div></form></div></section>`:''}
+<section id="book"><div class="wrap"><h2>Book a cut</h2><p class="note">${modeTxt}</p>${bookUI()}</div></section>
+<section><div class="wrap two"><div><h2>Find us</h2><p>${esc(S.addr)}</p><p class="note">Downstairs, room 44. Take the staircase, turn right and walk to the end.</p></div><div><h2>Hours</h2>${hrs?`<table>${hrs}</table>`:'<p class="note">Hours coming soon.</p>'}</div></div></section>`}
+function bookUI(){const any=S.hours&&Object.values(S.hours).some(Boolean);
+if(S.mode==='redirect')return `<p><a class="btn" href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus">Book on Booksy</a></p>`;
+if(!any)return `<div class="msg">Online booking opens once the owner sets the shop hours. Until then, <a href="https://booksy.com/en-us/1252072_01fadezz_barber-shop_134589_columbus">book on Booksy</a>.</div>`;
+const sl=slots();
+return `${B.ok?`<div class="msg" role="status">${esc(B.ok)}</div>`:''}${B.msg?`<div class="msg err" role="alert">${esc(B.msg)}</div>`:''}
+<div class="two"><div><h3>1. Service</h3><div class="chips">${S.services.map(s=>`<button class="ghost ${B.svc.includes(s.id)?'sel':''}" data-svc="${s.id}">${esc(s.name)} · $${s.p}</button>`).join('')}</div>
+<h3 style="margin-top:20px">2. Barber</h3><div class="chips"><button class="ghost ${B.barber==='any'?'sel':''}" data-bar="any">Any barber</button>${S.barbers.filter(b=>!b.paused).map(b=>`<button class="ghost ${B.barber===b.id?'sel':''}" data-bar="${b.id}">${esc(b.name.split(' ')[0])}</button>`).join('')}</div>
+<h3 style="margin-top:20px">3. Day</h3><div class="chips">${days().map(d=>`<button class="ghost ${B.date===iso(d)?'sel':''}" data-day="${iso(d)}">${DAYS[d.getDay()].slice(0,3)} ${d.getMonth()+1}/${d.getDate()}</button>`).join('')}</div></div>
+<div><h3>4. Time</h3>${!B.svc.length||!B.date?'<p class="note">Choose a service and day to see times.</p>':sl.length?`<div class="chips">${sl.map(t=>`<button class="ghost ${B.time===t?'sel':''}" data-t="${t}">${fmt(t)}</button>`).join('')}</div>`:'<p class="note">Nothing open that day. Try another day or barber.</p>'}
+<h3 style="margin-top:20px">5. Your details</h3><label for="bn">Name</label><input id="bn" value="${esc(B.name)}"><label for="be">Email</label><input id="be" type="email" value="${esc(B.email)}"><label for="bp">Phone (optional)</label><input id="bp" value="${esc(B.phone)}">
+<p>${B.svc.length?`<strong>${dur()} min · $${cost()}</strong> · pay at the shop`:''}</p><button id="go" ${B.time==null?'disabled':''}>${S.mode==='live'?'Book this time':'Send booking request'}</button></div></div>`}
+const inp=(v,id,ph='',t='text')=>`<input id="${id}" type="${t}" value="${esc(v)}" ${ph?`placeholder="${ph}"`:''}>`;
+function dash(){const T=[['hours','Hours'],['team','Team'],['services','Services'],['photos','Photos'],['settings','Settings'],['reqs','Requests']];
+let b='';
+if(tab==='hours')b=`<p class="note">Shop hours apply to both barbers. Leave a day closed or set open and close times.</p>${DAYS.map((d,i)=>{const h=S.hours[i];return `<div class="row" style="align-items:center"><label style="margin:0;min-width:100px"><input type="checkbox" style="width:auto" data-open="${i}" ${h?'checked':''}> ${d}</label>${h?`<span><input type="time" style="width:auto" data-o="${i}" value="${h.o}"> to <input type="time" style="width:auto" data-c="${i}" value="${h.c}"></span>`:'<span class="note">Closed</span>'}</div>`}).join('')}<p><button class="ghost" id="ex">Fill example hours (Tue–Sat, 12–7)</button></p>`;
+if(tab==='team')b=S.barbers.map(x=>`<div class="card" style="margin-bottom:12px"><h3>${esc(x.name)}</h3><label>Display name</label><input data-bn="${x.id}" value="${esc(x.name)}"><label>Bio</label><textarea rows="2" data-bb="${x.id}">${esc(x.bio)}</textarea><label><input type="checkbox" style="width:auto" data-pause="${x.id}" ${x.paused?'checked':''}> Pause online booking for ${esc(x.name.split(' ')[0])}</label>${x.id==='m'?`<label>Invitation email</label><input type="email" data-inv="m" value="${esc(x.invite||'')}"><p><button id="sendinv">Send invitation</button> <span class="note">${x.sent?'Invitation queued (mockup: no email is sent).':'Not invited yet.'}</span></p>`:''}</div>`).join('');
+if(tab==='services')b=`<table>${S.services.map(s=>`<tr><td><input data-sn="${s.id}" value="${esc(s.name)}"></td><td><input type="number" style="width:90px" data-sp="${s.id}" value="${s.p}"></td><td><input type="number" style="width:90px" data-sm="${s.id}" value="${s.m}"></td><td><button class="ghost" data-sd="${s.id}">Remove</button></td></tr>`).join('')}</table><p class="note">Name · price ($) · minutes</p><p><button class="ghost" id="adds">Add service</button></p>`;
+if(tab==='photos')b=`<label for="up">Add photos (JPG, PNG or WebP, up to 5 MB each)</label><input id="up" type="file" accept="image/jpeg,image/png,image/webp" multiple><div class="grid" style="margin-top:16px">${S.photos.map((p,i)=>`<div class="card"><div class="ph" data-alt="${esc(p.alt)}" style="aspect-ratio:1"><img src="${esc(p.src)}" alt="${esc(p.alt)}" onerror="this.remove()"></div><label>Description</label><input data-pa="${i}" value="${esc(p.alt)}"><p><button class="ghost" data-pd="${i}">Remove</button></p></div>`).join('')}</div><p class="note">The original Booksy photos may not load inside this preview. Photos you upload always do.</p>`;
+if(tab==='settings')b=`<div class="card"><label>Booking mode</label><select id="mode"><option value="request" ${S.mode==='request'?'selected':''}>Request only (owner confirms)</option><option value="live" ${S.mode==='live'?'selected':''}>Live (instant)</option><option value="redirect" ${S.mode==='redirect'?'selected':''}>Booksy redirect</option></select><label>Abdul's contact email (blank is fine)</label>${inp(S.email,'em','name@example.com','email')}<label>Address</label>${inp(S.addr,'ad')}<label>Instagram</label>${inp(S.ig,'ig')}<label><input type="checkbox" style="width:auto" id="mo" ${S.mobileOn?'checked':''}> Show mobile and travel section</label><label>Mobile and travel policy text (leave blank to hide)</label><textarea id="mt" rows="3">${esc(S.mobileText)}</textarea></div>`;
+if(tab==='reqs')b=`<h3>Bookings</h3>${S.reqs.length?`<table>${S.reqs.map((r,i)=>`<tr><td>${r.ref}<br>${esc(r.name)}</td><td>${esc(r.svc)}<br>${esc(bname(r.barber))} · ${r.date} ${fmt(r.start)}</td><td>${r.status}</td><td>${r.status==='pending'?`<button data-rc="${i}">Confirm</button> <button class="ghost" data-rx="${i}">Decline</button>`:''}</td></tr>`).join('')}</table>`:'<p class="note">No bookings yet. Make one on the public site.</p>'}<h3 style="margin-top:24px">Mobile inquiries</h3>${S.inq.length?`<table>${S.inq.map(q=>`<tr><td>${esc(q.n)}<br>${esc(q.e)}</td><td>${esc(q.m)}</td></tr>`).join('')}</table>`:'<p class="note">No inquiries yet.</p>'}`;
+return `<div class="dash"><div class="wrap"><h2>Owner dashboard</h2><p class="note">Mockup: changes save in this browser only. The real build stores them in the database.</p>${flash?`<div class="msg" role="status">${esc(flash)}</div>`:''}<div class="tabs">${T.map(([k,l])=>`<button class="${tab===k?'':'ghost'}" data-tab="${k}">${l}</button>`).join('')}</div>${b}</div></div>`}
+function render(){const y=scrollY;$('#app').innerHTML=(view==='dash'?dash():'')+site();flash='';scrollTo(0,y);$('#tgl').textContent=view==='dash'?'Hide dashboard':'Owner dashboard';$('#tgl').setAttribute('aria-pressed',view==='dash')}
+const q=(a,f)=>document.querySelectorAll(a).forEach(f);
+document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const d=t.dataset;
+if(t.id==='tgl'){view=view==='dash'?'site':'dash';return render()}
+if(d.svc){const i=+d.svc;B.svc=B.svc.includes(i)?B.svc.filter(x=>x!==i):[...B.svc,i];B.time=null;B.ok=''}
+else if(d.bar){B.barber=d.bar;B.time=null}else if(d.day){B.date=d.day;B.time=null}else if(d.t){B.time=+d.t}
+else if(t.id==='go'){B.name=$('#bn').value;B.email=$('#be').value;B.phone=$('#bp').value;book()}
+else if(d.tab)tab=d.tab;
+else if(t.id==='ex'){[2,3,4,5,6].forEach(i=>S.hours[i]={o:'12:00',c:'19:00'});save()}
+else if(t.id==='adds'){S.services.push({id:Date.now(),name:'New service',d:'',p:0,m:30});save()}
+else if(d.sd){S.services=S.services.filter(s=>s.id!==+d.sd);save()}
+else if(d.pd){S.photos.splice(+d.pd,1);save()}
+else if(t.id==='sendinv'){const m=S.barbers[1];if(!/\S+@\S+\.\S+/.test(m.invite||''))flash='Enter a valid email for Mazen first.';else{m.sent=1;flash='Invitation queued. Mazen verifies the email when he opens the link.'}save()}
+else if(d.rc!==undefined){S.reqs[+d.rc].status='confirmed';save()}else if(d.rx!==undefined){S.reqs[+d.rx].status='declined';save()}else return;
+render()});
+document.addEventListener('change',e=>{const t=e.target,d=t.dataset;let r=1;
+if(d.open!==undefined)S.hours[d.open]=t.checked?{o:'12:00',c:'19:00'}:null;
+else if(d.o!==undefined)S.hours[d.o].o=t.value;else if(d.c!==undefined)S.hours[d.c].c=t.value;
+else if(d.bn)S.barbers.find(b=>b.id===d.bn).name=t.value||'Unnamed';else if(d.bb)S.barbers.find(b=>b.id===d.bb).bio=t.value;
+else if(d.pause)S.barbers.find(b=>b.id===d.pause).paused=t.checked;else if(d.inv)S.barbers[1].invite=t.value,r=0;
+else if(d.sn)S.services.find(s=>s.id==d.sn).name=t.value;else if(d.sp)S.services.find(s=>s.id==d.sp).p=Math.max(0,+t.value||0);else if(d.sm)S.services.find(s=>s.id==d.sm).m=Math.max(5,+t.value||5);
+else if(d.pa)S.photos[+d.pa].alt=t.value;
+else if(t.id==='mode')S.mode=t.value;else if(t.id==='em'){if(t.value&&!t.validity.valid){flash='Enter a valid email address.';return render()}S.email=t.value}else if(t.id==='ad')S.addr=t.value;else if(t.id==='ig')S.ig=t.value;else if(t.id==='mo')S.mobileOn=t.checked;else if(t.id==='mt')S.mobileText=t.value;
+else if(t.id==='up'){[...t.files].forEach(f=>{if(!/^image\/(jpeg|png|webp)$/.test(f.type)||f.size>5e6){flash='Skipped '+f.name+': use a JPG, PNG or WebP under 5 MB.';return render()}
+const R=new FileReader();R.onload=()=>{S.photos.unshift({src:R.result,alt:f.name.replace(/\.[^.]+$/,'')});save();render()};R.readAsDataURL(f)});return}
+else return;save();if(r)render()});
+document.addEventListener('submit',e=>{if(e.target.id==='inq'){e.preventDefault();S.inq.push({n:$('#iq1').value,e:$('#iq2').value,m:$('#iq3').value});save();e.target.reset();$('#iqs').textContent='Inquiry received. This is not an approval; the shop will reply.'}});
+render();
+</script></body></html>
